@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flag</title>
+</head>
+
+<body>
+    <script>
+        //Create a board with style of board for windown
+        var board = document.createElement("div");
+        board.style.width = "100%";
+        //board.style.flexDirection = "row"
+        board.style.display = "flex"
+        board.style.flexWrap = "wrap"
+
+        //Get the url
+        fetch("https://restcountries.com/v3.1/all")
+            //just convert the data from url into JSON file
+            .then(function (data) {
+                return data.json();
+            })
+            //return JSON will be used to get the output
+            .then(function (dataObj) {
+               // console.log(dataObj)
+
+                dataObj.forEach(function (element) {
+                    //console.log(element.car.signs[0])
+                    var box = document.createElement('div')
+                    box.style.width = "200px";
+                    box.style.height = "200px"
+                    box.style.display = "flex"
+                    box.style.flexDirection = "column";
+                    box.style.border = '1px solid black'
+                    board.appendChild(box)
+
+                    var image = document.createElement("img");
+                    image.setAttribute('src', element.flags.png);
+                    image.setAttribute('alt', "image")
+                    image.style.width = "199px"
+                    image.style.height = "100px"
+                    box.style.marginTop = "10px"
+                    image.style.border = ("1px solid black")
+                    box.appendChild(image)
+
+                    var name = document.createElement("div")
+                    name.style.width = "199px"
+                    name.style.height = "50x"
+                    name.style.marginTop = "10px"
+                    name.innerText = element.name.common;
+                    box.appendChild(name)
+
+                    var carSign = document.createElement("div")
+                    carSign.style.width = "199px"
+                    carSign.style.height = "50x"
+                    carSign.style.marginTop = "10px"
+                    carSign.innerText = element.car.signs[0];
+                    box.appendChild(carSign)
+
+                })
+
+            })
+            .catch(function (err) {
+                console.log(err)
+            })
+        document.body.appendChild(board);
+
+    </script>
+</body>
+
+</html>
